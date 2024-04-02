@@ -1,7 +1,7 @@
 from testclasses import *
 from Eleni_Classes import Bara, ePass
 
-tameio = Tameios()
+tameio = Tameio()
 tollBar = Bara()
 aisthitiras = Aisthitiras()
 
@@ -56,7 +56,7 @@ for i in range(20):
 	if current_epass.elegxei(current_vehicle):
 
 		current_epass.xrewnei(current_vehicle)
-		tameio.addAxiaDieleysis()
+		tameio.addAxiaDieleysis(current_vehicle)
 		tollBar.anoigei()
 		current_vehicle.dieleysei()
 
