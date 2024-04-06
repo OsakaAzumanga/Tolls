@@ -27,7 +27,7 @@ class Fortigo(Oxima):
         return 3.20
     
 class ePass():
-    def __init)__(self,kwdikos,oxima)
+    def __init__(self.kwdikos,oxima)
     self.kwdikos=kwdikos
     self.oxima=oxima
     self.ypoloipologariasmou=random.uniform(1,5)
