@@ -22,10 +22,10 @@ class Bara:
 
 			
 class ePass:
-	def __init__(self, kwdkartas, arkykloforias):
+	def __init__(self, kwdkartas):
 		self.kwdkartas = kwdkartas
 		self.ypoloipoLogariasmou = random.uniform(0, 5)
-		self.arKykloforias = arkykloforias
+		self.oxima = None
 
 	def fortizei(self):
 		self.ypoloipoLogariasmou = random.uniform(0, 5)
