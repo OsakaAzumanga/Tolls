@@ -1,6 +1,7 @@
 from testclasses import *
-from Eleni_Classes import Bara, ePass
+from Eleni_Classes import Epass
 from Tkinter_Classes import *
+from classes_aisthitiras_tameio import *
 
 
 class App(tk.Tk):
@@ -17,14 +18,15 @@ class StartScreen(tk.Frame):
 	def __init__(self, parent):
 		super().__init__(parent)
 		self.parent = parent
-		self.background = tk.Label(self, background="#9403fc")
-		self.background.place(relx=0, rely=0, relheight=1, relwidth=1)
+
+		self.configure(bg="#9403fc")
+
 		self.start_button = tk.Button(self, text="αρχη", command=self.start)
 		self.start_button.pack(expand=True)
 		self.place(relheight=1, relwidth=1)
 
 	def start(self):
-		self.start_button.destroy()
+		self.destroy()
 		self.parent.main_screen = MainScreen(self.parent)
 
 
@@ -33,12 +35,12 @@ class MainScreen(tk.Frame):
 	def __init__(self, parent):
 		super().__init__(parent)
 
+		self.results_button = None
 		self.parent = parent
 		self.attempted_passes = 0
-		self.stat_string = tk.StringVar(self, "NULL\nNULL\nNULL")
+		self.stat_string = tk.StringVar(self, "    \n    \n    ")
 
-		self.background = tk.Label(self, background="#9403fc")
-		self.background.place(relx=0, rely=0, relheight=1, relwidth=1)
+		self.configure(bg="#9403fc")
 
 		self.next_button = tk.Button(self, text="επομενο", command=self.next_vehicle)
 		self.next_button.pack(expand=True)
@@ -46,9 +48,7 @@ class MainScreen(tk.Frame):
 		self.car_stats = tk.Frame(self, bg="gray")
 		self.car_id = tk.Label(self.car_stats, textvariable=self.stat_string)
 		self.car_id.pack()
-		self.car_stats.pack()
-
-		self.car_stats.pack(expand=True,)
+		self.car_stats.pack(expand=True)
 
 		self.place(relheight=1, relwidth=1)
 
@@ -58,35 +58,57 @@ class MainScreen(tk.Frame):
 		current_vehicle = current_epass.oxima
 
 		# (η elegxei περνει Input ενα ποσο και βγαζει True αν η καρτα εχει >= λεφτα)
-		if current_epass.elegxei(current_vehicle):
+		if current_epass.elegxei():
 
-			current_epass.xrewnei(current_vehicle)
-			tameio.addAxiaDieleysis(current_vehicle)
-			tollBar.anoigei()
+			current_epass.xrewnei()
+			tameio.addAxiaDieleysis(current_vehicle.poso)
 			current_vehicle.dieleysei()
 
-			tollBar.kleinei()
 		else:
 			print("δεν εχει λεφτα ξερωγω λολ")
 			current_epass.fortizei()
 		self.attempted_passes += 1
-		if self.attempted_passes >= 20:
+		if self.attempted_passes >= 2:
 			self.next_button.configure(state="disabled")
+			self.results_button = tk.Button(self, text="αποτελεσματα", command=self.to_results)
+			self.results_button.pack(expand=True)
 
-		self.stat_string.set(f'{current_epass.kwdkartas}\n{current_vehicle.arKykloforias}\n{current_vehicle.__class__.__name__}')
+		self.stat_string.set(
+			f'{current_epass.kwdkartas}\n'
+			f'{current_vehicle.arKykloforias}\n'
+			f'{current_vehicle.__class__.__name__}')
 
 	def to_results(self):
-		pass
+		self.destroy()
+		self.parent.end_screen = EndScreen(self.parent)
+
+
+class EndScreen(tk.Frame):
+	def __init__(self, parent):
+		super().__init__(parent)
+
+		self.parent = parent
+
+		self.configure(bg="#9403fc")
+
+		self.end_button = tk.Button(self, text="τελος", command=parent.destroy)
+		self.end_button.pack()
+
+		self.end_stats_frame = tk.Frame(self, bg="gray")
+
+		self.placeholder = tk.Label(self.end_stats_frame, text="edw tha leei pramata")
+		self.placeholder.pack()
+
+		self.end_stats_frame.pack(expand=True)
+
+		self.place(relheight=1, relwidth=1)
 
 
 tameio = Tameio()
-tollBar = Bara()
-aisthitiras = Aisthitiras()
-
+aisthitiras = Aisthitiras(tameio)
 
 ePassList = []
 oximataList = []
-
 
 vehiclesDict = [
 				['1715', 'ΝΙΒ1000', 'Επιβατικό'],
@@ -111,13 +133,14 @@ for i in range(len(vehiclesDict)):
 	else:
 		oximataList.append(Fortigo(vehiclesDict[i][1]))
 
-	ePassList.append(ePass(vehiclesDict[i][0]))
+	ePassList.append(Epass(vehiclesDict[i][0]))
 
 	ePassList[-1].oxima = oximataList[-1]
 	oximataList[-1].epass = ePassList[-1]
 
 app = App()
 
+# αυτα θα φυγουν
 
 print("διελευσεις:", tameio.arDieleysewn, "εσωδα", tameio.esodaDieleysewn)
 
