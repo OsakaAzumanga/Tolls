@@ -4,7 +4,6 @@ class Oxima():
     """ Αυτή είναι η γονική κλάση όλων των οχημάτων"""
     def __init__(self,arKykloforias):
         self.arKykloforias=arKykloforias
-        self.kwdkartas=kwdkartas #Αναφέρομαι στον κωδικό της εκάστοτε ePass
         self.ePass=None
 class Epivatiko(Oxima):
     """Αυτή η κλάση κληρονομεί όλα τα χαρακτηριστικά της γονικής με την προσθήκη της εξειδικευμένης χρέωσης που απαντάνται μόνο σε αυτήν"""
