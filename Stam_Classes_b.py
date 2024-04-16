@@ -1,4 +1,3 @@
-import random
 
 class Oxima():
     """ Αυτή είναι η γονική κλάση όλων των οχημάτων"""
@@ -29,10 +28,3 @@ class Fortigo(Oxima):
         
         def xrewnei(self):
             return 3.20
-    
-class ePass():
-    def __init__(self,kwdkartas,oxima,ypoloipoLogariasmou,arithmos_dieleysewn):
-        self.kwdkartas=kwdkartas
-        self.oxima=oxima
-        self.ypoloipoLogariasmou=random.uniform(1,5)
-        self.arithmos_dieleysewn=0

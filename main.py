@@ -1,8 +1,8 @@
 import tkinter as tk
 from Eleni_Classes import Epass
-
 from ClassesAisthitirasTameio import *
 from Stam_Classes_b import *
+
 
 class App(tk.Tk):
 	def __init__(self):
@@ -63,12 +63,11 @@ class MainScreen(tk.Frame):
 			current_epass.xrewnei()
 			tameio.addAxiaDieleysis(current_vehicle.xrewnei())
 
-
 		else:
 			print("δεν εχει λεφτα ξερωγω λολ")
 			current_epass.fortizei()
 		self.attempted_passes += 1
-		if self.attempted_passes >= 2:
+		if self.attempted_passes >= 20:
 			self.next_button.configure(state="disabled")
 			self.results_button = tk.Button(self, text="αποτελεσματα", command=self.to_results)
 			self.results_button.pack(expand=True)
@@ -147,4 +146,3 @@ print("διελευσεις:", tameio.arDieleysewn, "εσωδα", tameio.esodaDi
 for i in range(10):
 	print("αριθμος κυκλοφοριας: ", oximataList[i].arKykloforias)
 	print("αριθμος καρτας:", ePassList[i].kwdkartas, "    υποληπο καρτας", ePassList[i].ypoloipoLogariasmou)
-
