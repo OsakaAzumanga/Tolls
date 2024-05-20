@@ -11,13 +11,14 @@ class Epass:
 		self.ypoloipoLogariasmou = random.uniform(0, 5)
 
 	def elegxei(self):
-		if self.oxima.xrewnei() <= self.ypoloipoLogariasmou:
+		if self.oxima.fee <= self.ypoloipoLogariasmou:
 			return True
 		else:
 			return False
 
 	def xrewnei(self):
-		if self.oxima.xrewnei() <= self.ypoloipoLogariasmou:
-			self.ypoloipoLogariasmou -= self.oxima.xrewnei()
+		if self.oxima.fee <= self.ypoloipoLogariasmou:
+			self.ypoloipoLogariasmou -= self.oxima.fee
+			self.oxima.xrewnei()
 		else:
 			print("δεν υπαρχουν αρκετα λεφτα (καποιο λαθος στην main)")
