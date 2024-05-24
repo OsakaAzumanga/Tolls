@@ -15,7 +15,7 @@ class App(tk.Tk):
 		self.minsize(720, 600)
 		self.start_screen = StartScreen(self)
 
-		icon = tk.PhotoImage(file="./assets/euro.png")
+		icon = tk.PhotoImage(file=".\\assets\\euro.png")
 		self.iconphoto(True, icon)
 
 		self.mainloop()
@@ -57,9 +57,16 @@ class MainScreen(tk.Frame):
 
 		self.loading_icons = []
 		for image_number in range(12):
-			self.loading_icons.append(tk.PhotoImage(file=f"assets/loading_bar/Frame {image_number+1}.png"))
+			self.loading_icons.append(tk.PhotoImage(file=f".\\assets\\loading_bar\\Frame {image_number+1}.png"))
+		self.Epivatiko_pass_image = tk.PhotoImage(file=".\\assets\\paint\\car_pass.png")
+		self.Epivatiko_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\car_nopass.png")
+		self.Dikyklo_pass_image = tk.PhotoImage(file=".\\assets\\paint\\moto_pass.png")
+		self.Dikyklo_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\moto_nopass.png")
+		self.Fortigo_pass_image = tk.PhotoImage(file=".\\assets\\paint\\truck_pass.png")                                                                             
+		self.Fortigo_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\truck_nopass.png")
+		self.hello_image = tk.PhotoImage(file=".\\assets\\paint\\hello.png")
 
-		self.image_label = tk.Label(self)
+		self.image_label = tk.Label(self, image=self.hello_image)
 		self.image_label.pack(expand=True)
 
 		self.controls = tk.Frame(self, bg="dark gray")
@@ -99,11 +106,33 @@ class MainScreen(tk.Frame):
 		if current_epass.elegxei():
 
 			pass_string = "επαρκες ποσο"
+
+			if isinstance(current_vehicle, Epivatiko):
+				current_image = self.Epivatiko_pass_image
+			elif isinstance(current_vehicle, Dikyklo):
+				current_image = self.Dikyklo_pass_image
+			else:
+				current_image = self.Fortigo_pass_image
+
+			self.image_label.configure(image=current_image)
+			self.update()
+
 			current_epass.xrewnei()
 			tameio.addAxiaDieleysis(current_vehicle.fee)
 
 		else:
 			pass_string = "μη επαρκες ποσο"
+
+			if isinstance(current_vehicle, Epivatiko):
+				current_image = self.Epivatiko_nopass_image
+			elif isinstance(current_vehicle, Dikyklo):
+				current_image = self.Dikyklo_nopass_image
+			else:
+				current_image = self.Fortigo_nopass_image
+
+			self.image_label.configure(image=current_image)
+			self.update()
+
 			current_epass.fortizei()
 
 		self.attempted_passes += 1
