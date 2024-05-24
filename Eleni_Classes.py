@@ -4,11 +4,11 @@ import random
 class Epass:
 	def __init__(self, kwdkartas):
 		self.kwdkartas = kwdkartas
-		self.ypoloipoLogariasmou = random.uniform(0, 5)
+		self.ypoloipoLogariasmou = round(random.uniform(0, 5), 2)
 		self.oxima = None
 
 	def fortizei(self):
-		self.ypoloipoLogariasmou = random.uniform(0, 5)
+		self.ypoloipoLogariasmou = round(random.uniform(0, 5), 2)
 
 	def elegxei(self):
 		if self.oxima.fee <= self.ypoloipoLogariasmou:
@@ -18,7 +18,7 @@ class Epass:
 
 	def xrewnei(self):
 		if self.oxima.fee <= self.ypoloipoLogariasmou:
-			self.ypoloipoLogariasmou -= self.oxima.fee
+			self.ypoloipoLogariasmou = round(self.ypoloipoLogariasmou - self.oxima.fee, 2)
 			self.oxima.xrewnei()
 		else:
 			print("δεν υπαρχουν αρκετα λεφτα (καποιο λαθος στην main)")

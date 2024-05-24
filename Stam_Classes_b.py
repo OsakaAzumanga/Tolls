@@ -5,6 +5,11 @@ class Oxima():
         self.arKykloforias=arKykloforias
         self.ePass=None
         self.arDieleysewn = 0
+
+    def xrewnei(self):
+        self.arDieleysewn += 1
+
+
 class Epivatiko(Oxima):
     """Αυτή η κλάση κληρονομεί όλα τα χαρακτηριστικά της γονικής με την προσθήκη της εξειδικευμένης χρέωσης που απαντάνται μόνο σε αυτήν"""
     def __init__(self,arKykloforias):
@@ -13,6 +18,7 @@ class Epivatiko(Oxima):
     
     def xrewnei(self):
         self.arDieleysewn+=1
+
 
 class Dikyklo(Oxima):
         """Αυτή η κλάση κληρονομεί όλα τα χαρακτηριστικά της γονικής με την προσθήκη της εξειδικευμένης χρέωσης που απαντάνται μόνο σε αυτήν"""
@@ -23,10 +29,12 @@ class Dikyklo(Oxima):
         def xrewnei(self):
             self.arDieleysewn += 1
 
+
 class Fortigo(Oxima):
         """Αυτή η κλάση κληρονομεί όλα τα χαρακτηριστικά της γονικής με την προσθήκη της εξειδικευμένης χρέωσης που απαντάνται μόνο σε αυτήν"""
         def __init__(self,arKykloforias):
             super().__init__(arKykloforias)
             self.fee = 3.20
+
         def xrewnei(self):
             self.arDieleysewn += 1

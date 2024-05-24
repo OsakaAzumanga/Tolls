@@ -1,11 +1,13 @@
 import random
 
+
 class Aisthitiras:
     def __init__(self, tameio):
         self.tameio = tameio
 
     def anixneyei(self, ePassList):
         return random.choice(ePassList)
+
 
 class Tameio:
     def __init__(self):
@@ -14,4 +16,4 @@ class Tameio:
 
     def addAxiaDieleysis(self, axia):
         self.arDieleysewn += 1
-        self.esodaDieleysewn += axia
+        self.esodaDieleysewn = round(self.esodaDieleysewn + axia)

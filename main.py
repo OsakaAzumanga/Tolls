@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from random import randint
 import time as time
+from pathlib import Path
+
+directory = Path(__file__).absolute().parent
 
 
 class App(tk.Tk):
@@ -15,7 +18,7 @@ class App(tk.Tk):
 		self.minsize(720, 600)
 		self.start_screen = StartScreen(self)
 
-		icon = tk.PhotoImage(file=".\\assets\\euro.png")
+		icon = tk.PhotoImage(file=f"{directory}\\assets\\euro.png")
 		self.iconphoto(True, icon)
 
 		self.mainloop()
@@ -57,14 +60,14 @@ class MainScreen(tk.Frame):
 
 		self.loading_icons = []
 		for image_number in range(12):
-			self.loading_icons.append(tk.PhotoImage(file=f".\\assets\\loading_bar\\Frame {image_number+1}.png"))
-		self.Epivatiko_pass_image = tk.PhotoImage(file=".\\assets\\paint\\car_pass.png")
-		self.Epivatiko_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\car_nopass.png")
-		self.Dikyklo_pass_image = tk.PhotoImage(file=".\\assets\\paint\\moto_pass.png")
-		self.Dikyklo_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\moto_nopass.png")
-		self.Fortigo_pass_image = tk.PhotoImage(file=".\\assets\\paint\\truck_pass.png")                                                                             
-		self.Fortigo_nopass_image = tk.PhotoImage(file=".\\assets\\paint\\truck_nopass.png")
-		self.hello_image = tk.PhotoImage(file=".\\assets\\paint\\hello.png")
+			self.loading_icons.append(tk.PhotoImage(file=f"{directory}\\assets\\loading_bar\\Frame {image_number+1}.png"))
+		self.Epivatiko_pass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\car_pass.png")
+		self.Epivatiko_nopass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\car_nopass.png")
+		self.Dikyklo_pass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\moto_pass.png")
+		self.Dikyklo_nopass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\moto_nopass.png")
+		self.Fortigo_pass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\truck_pass.png")
+		self.Fortigo_nopass_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\truck_nopass.png")
+		self.hello_image = tk.PhotoImage(file=f"{directory}\\assets\\paint\\hello.png")
 
 		self.image_label = tk.Label(self, image=self.hello_image)
 		self.image_label.pack(expand=True)
@@ -89,7 +92,7 @@ class MainScreen(tk.Frame):
 		for loop in range(random_loops):
 			for frame in range(12):
 
-				time.sleep(0.05)
+				time.sleep(0.00)
 
 				self.image_label.configure(image=self.loading_icons[frame])
 				self.image_label.image = self.loading_icons[frame]
@@ -157,6 +160,26 @@ class EndScreen(tk.Frame):
 		self.parent = parent
 		self.configure(bg="#FFFFFF")
 
+		self.stat_frame = tk.Frame(self)
+
+		tameio_stat_string = f"συνολικες διελευσεις: {tameio.arDieleysewn}\nσυνολικα εσωδα: {tameio.esodaDieleysewn}€"
+
+		self.tameio_stats = tk.Label(self.stat_frame, text=tameio_stat_string)
+		self.tameio_stats.pack(side="left")
+
+		car_stat_string = "αρ. κυκλοφοριας/ ειδος οχηματος/\nαρ. διελευσεων/ υποληπο καρτας\n"
+		for vehicle in oximataList:
+			if vehicle.arDieleysewn != 0:
+				car_stat_string = car_stat_string + (
+					f"{vehicle.arKykloforias}, "
+					f"{vehicle.__class__.__name__}: "
+					f"{vehicle.arDieleysewn}, "
+					f"{vehicle.ePass.ypoloipoLogariasmou}\n"
+				)
+
+		self.car_stats = tk.Label(self.stat_frame, text=car_stat_string)
+		self.car_stats.pack(side="left")
+
 		# υπολογιζει αριθμο διελευσεων ανα ειδος οχηματος
 		passes_list = [0, 0, 0]
 		for oxima in oximataList:
@@ -167,18 +190,23 @@ class EndScreen(tk.Frame):
 			elif isinstance(oxima, Fortigo):
 				passes_list[2] = passes_list[2] + oxima.arDieleysewn
 
-		self.graph_title = tk.Label(self, text="διελευσεις ανα ειδος οχηματος", font=("Arial", 30))
+		self.graph1 = tk.Frame(self.stat_frame, background="white")
+		self.graph_title = tk.Label(self.graph1, text="διελευσεις ανα\nειδος οχηματος", font=("Arial", 30))
 		self.graph_title.pack()
 
 		self.fig, self.ax = plt.subplots()
 		self.ax.pie(passes_list, labels=["Επιβατικα", "Δυκικλα", "Φορτιγα"], autopct="%1.1f%%")
 
-		self.graph_canvas = FigureCanvasTkAgg(self.fig, master=self)
+		self.graph_canvas = FigureCanvasTkAgg(self.fig, master=self.graph1)
 		self.graph_canvas.get_tk_widget().pack()
 		self.graph_canvas.draw()
 
+		self.graph1.pack()
+
+		self.stat_frame.pack()
+
 		self.end_button = tk.Button(self, text="τελος", command=parent.quit)
-		self.end_button.pack()
+		self.end_button.pack(side="top")
 
 		self.place(relheight=1, relwidth=1)
 
