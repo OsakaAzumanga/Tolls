@@ -32,7 +32,7 @@ class StartScreen(tk.Frame):
 
 		self.configure(bg="#FFFFFF")
 
-		self.start_button = tk.Button(self, text="αρχη", command=self.start)
+		self.start_button = tk.Button(self, text="Έναρξη", command=self.start)
 		self.start_button.pack(expand=True)
 		self.place(relheight=1, relwidth=1)
 
@@ -74,10 +74,10 @@ class MainScreen(tk.Frame):
 
 		self.controls = tk.Frame(self, bg="dark gray")
 
-		self.next_button = tk.Button(self.controls, text="επομενο", command=self.wait_for_vehicle)
+		self.next_button = tk.Button(self.controls, text="Επόμενο", command=self.wait_for_vehicle)
 		self.next_button.pack(expand=True)
 
-		self.results_button = tk.Button(self.controls, text="αποτελεσματα", command=self.to_results, state="disabled")
+		self.results_button = tk.Button(self.controls, text="Αποτελέσματα", command=self.to_results, state="disabled")
 		self.results_button.pack(expand=True)
 
 		self.controls.pack(expand=True, fill="both")
@@ -85,7 +85,7 @@ class MainScreen(tk.Frame):
 		self.place(relheight=1, relwidth=1)
 
 	def wait_for_vehicle(self):
-		self.stat_string.set("scanning gia amaksi kserwgw")
+		self.stat_string.set("Έλεγχος οχήματος")
 		self.next_button.configure(state="disabled")
 		random_loops = randint(2, 7)
 
@@ -108,7 +108,7 @@ class MainScreen(tk.Frame):
 		# (η elegxei περνει Input ενα ποσο και βγαζει True αν η καρτα εχει >= λεφτα)
 		if current_epass.elegxei():
 
-			pass_string = "επαρκες ποσο"
+			pass_string = "Επαρκές ποσό"
 
 			if isinstance(current_vehicle, Epivatiko):
 				current_image = self.Epivatiko_pass_image
@@ -124,7 +124,7 @@ class MainScreen(tk.Frame):
 			tameio.addAxiaDieleysis(current_vehicle.fee)
 
 		else:
-			pass_string = "μη επαρκες ποσο"
+			pass_string = "Μη επαρκές ποσό"
 
 			if isinstance(current_vehicle, Epivatiko):
 				current_image = self.Epivatiko_nopass_image
@@ -162,12 +162,12 @@ class EndScreen(tk.Frame):
 
 		self.stat_frame = tk.Frame(self)
 
-		tameio_stat_string = f"συνολικες διελευσεις: {tameio.arDieleysewn}\nσυνολικα εσωδα: {tameio.esodaDieleysewn}€"
+		tameio_stat_string = f"Συνολικές διελεύσεις: {tameio.arDieleysewn}\nΣυνολικά έσοδα: {tameio.esodaDieleysewn}€"
 
 		self.tameio_stats = tk.Label(self.stat_frame, text=tameio_stat_string)
 		self.tameio_stats.pack(side="left")
 
-		car_stat_string = "αρ. κυκλοφοριας/ ειδος οχηματος/\nαρ. διελευσεων/ υποληπο καρτας\n"
+		car_stat_string = "Αρ. κυκλοφορίας/ Είδος οχηματος/\nΑρ. διελεύσεων/ Υπόλοιπο κάρτας\n"
 		for vehicle in oximataList:
 			if vehicle.arDieleysewn != 0:
 				car_stat_string = car_stat_string + (
@@ -191,11 +191,11 @@ class EndScreen(tk.Frame):
 				passes_list[2] = passes_list[2] + oxima.arDieleysewn
 
 		self.graph1 = tk.Frame(self.stat_frame, background="white")
-		self.graph_title = tk.Label(self.graph1, text="διελευσεις ανα\nειδος οχηματος", font=("Arial", 30))
+		self.graph_title = tk.Label(self.graph1, text="Διελεύσεις ανά\nείδος οχήματος", font=("Arial", 30))
 		self.graph_title.pack()
 
 		self.fig, self.ax = plt.subplots()
-		self.ax.pie(passes_list, labels=["Επιβατικα", "Δυκικλα", "Φορτιγα"], autopct="%1.1f%%")
+		self.ax.pie(passes_list, labels=["Επιβατικά", "Δίκυκλα", "Φορτηγά"], autopct="%1.1f%%")
 
 		self.graph_canvas = FigureCanvasTkAgg(self.fig, master=self.graph1)
 		self.graph_canvas.get_tk_widget().pack()
@@ -205,7 +205,7 @@ class EndScreen(tk.Frame):
 
 		self.stat_frame.pack()
 
-		self.end_button = tk.Button(self, text="τελος", command=parent.quit)
+		self.end_button = tk.Button(self, text="Τέλος", command=parent.quit)
 		self.end_button.pack(side="top")
 
 		self.place(relheight=1, relwidth=1)
