@@ -1,5 +1,5 @@
 import tkinter as tk
-from Eleni_Classes import Epass
+from Classes_Epass import Epass
 from ClassesAisthitirasTameio import *
 from Classes_Oxima_Epivatiko_Dikyklo_Fortigo import *
 import matplotlib.pyplot as plt
