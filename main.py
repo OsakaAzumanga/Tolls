@@ -8,6 +8,7 @@ from random import randint
 import time as time
 from pathlib import Path
 
+
 directory = Path(__file__).absolute().parent
 
 
@@ -32,6 +33,13 @@ class StartScreen(tk.Frame):
 
 		self.configure(bg="#FFFFFF")
 
+		self.title_label = tk.Label(self, text="Πρόγραμμα Διοδίων", font=("Impact", 50))
+		self.title_label.pack(fill="both")
+
+		self.diodia_image = tk.PhotoImage(file=f"{directory}\\assets\\tollsign.png")
+		self.diodia_image_label = tk.Label(self, image=self.diodia_image, bg="#FFFFFF")
+		self.diodia_image_label.pack(fill="both")
+
 		self.start_button = tk.Button(self, text="Έναρξη", command=self.start)
 		self.start_button.pack(expand=True)
 		self.place(relheight=1, relwidth=1)
@@ -54,7 +62,7 @@ class MainScreen(tk.Frame):
 		self.configure(bg="#FFFFFF")
 
 		self.car_stats = tk.Frame(self, bg="gray")
-		self.car_id = tk.Label(self.car_stats, textvariable=self.stat_string, width=25, height=5)
+		self.car_id = tk.Label(self.car_stats, textvariable=self.stat_string, width=25, height=5, font=("Arial", 20))
 		self.car_id.pack()
 		self.car_stats.pack(expand=True)
 
@@ -92,7 +100,7 @@ class MainScreen(tk.Frame):
 		for loop in range(random_loops):
 			for frame in range(12):
 
-				time.sleep(0.00)
+				time.sleep(0.03)
 
 				self.image_label.configure(image=self.loading_icons[frame])
 				self.image_label.image = self.loading_icons[frame]
@@ -164,7 +172,7 @@ class EndScreen(tk.Frame):
 
 		tameio_stat_string = f"Συνολικές διελεύσεις: {tameio.arDieleysewn}\nΣυνολικά έσοδα: {tameio.esodaDieleysewn}€"
 
-		self.tameio_stats = tk.Label(self.stat_frame, text=tameio_stat_string)
+		self.tameio_stats = tk.Label(self.stat_frame, text=tameio_stat_string, font=("Arial", 12))
 		self.tameio_stats.pack(side="left")
 
 		car_stat_string = "Αρ. κυκλοφορίας/ Είδος οχηματος/\nΑρ. διελεύσεων/ Υπόλοιπο κάρτας\n"
@@ -177,7 +185,7 @@ class EndScreen(tk.Frame):
 					f"{vehicle.ePass.ypoloipoLogariasmou}\n"
 				)
 
-		self.car_stats = tk.Label(self.stat_frame, text=car_stat_string)
+		self.car_stats = tk.Label(self.stat_frame, text=car_stat_string, font=("Arial", 12))
 		self.car_stats.pack(side="left")
 
 		# υπολογιζει αριθμο διελευσεων ανα ειδος οχηματος
